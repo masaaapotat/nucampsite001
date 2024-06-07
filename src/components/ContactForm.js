@@ -3,6 +3,15 @@ import { Formik, Field, Form } from "formik";
 import React from "react";
 
 const ContactForm = () => {
+    // definng the handle submit function
+    // has 2 params and the argument passed to the values will be provided tp the function by the formik component when it calls this function
+    // value-will be whaetever was submitted in the form
+    // reset form is a destructed function , utility function that formik provides to reset the form
+    const handleSubmit=(values, {resetForm})=>{
+        console.log('form values:', values);
+        console.log('in JSON format:', JSON.stringify(values));
+        resetForm()
+    }
   return (
     <Formik
       // Defining the initial values for the form fields via the initialValues prop that we pass to Formik
@@ -16,6 +25,9 @@ const ContactForm = () => {
         contactType: "",
         feedback: "",
       }}
+    //   another prop
+    // when the formik component recieves it will know to call the handle submit function
+    onSubmit={handleSubmit}
     >
       {/* We render the Form component inside Formik */}
       <Form>
