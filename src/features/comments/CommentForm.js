@@ -1,9 +1,32 @@
 import { useState } from "react";
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  FormGroup,
+  Label,
+} from "reactstrap";
+import { Formik, Field, Form } from "formik";
 
 function CommentForm({ campsiteId }) {
-    // State Initialization
-  const [ modalOpen, setModalOpen ] = useState(false);
+  // State Initialization
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // Create the handleSubmit event handler
+  const handleSubmit = (values) => {
+    const comment = {
+      campsiteId: parseInt(campsiteId),
+      rating: values.rating,
+      author: values.author,
+      text: values.commentText,
+    };
+    console.log(comment);
+    
+    // Close the modal after form submission
+    setModalOpen(false);
+  };
+
   return (
     <>
       <Button
@@ -13,21 +36,66 @@ function CommentForm({ campsiteId }) {
       >
         <i className="fa fa-pencil fa-lg" /> Add Comment
       </Button>
-      {/*  rendering a Modal */}
+      {/* Rendering a Modal */}
       <Modal
-        //   cause the Modal to open or close depending on the value of modalOpen.
+        // Cause the Modal to open or close depending on the value of modalOpen.
         isOpen={modalOpen}
       >
         <ModalHeader
           toggle={() => {
-            // cause the modalOpen state to be set back to false when the Modal is closed.
+            // Cause the modalOpen state to be set back to false when the Modal is closed.
             setModalOpen(false);
           }}
         >
           Add Comment
         </ModalHeader>
-        {/* ModalBody component that simply shows the current campsiteId */}
-        <ModalBody>campsite: {campsiteId}</ModalBody>
+        <ModalBody>
+          <Formik
+            initialValues={{
+              // Properties we want to capture in our form
+              rating: '',
+              author: '',
+              commentText: '',
+            }}
+            // When the Formik component receives it will know to call the handleSubmit function
+            onSubmit={handleSubmit}
+          >
+            <Form>
+              <FormGroup>
+                <Label htmlFor="rating">Rating</Label>
+                <Field name="rating" as="select" className="form-control">
+                  <option value="">Select...</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </Field>
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="author">Your Name</Label>
+                <Field
+                  name="author"
+                  placeholder="Your Name"
+                  className="form-control"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="commentText">Comment</Label>
+                <Field
+                  name="commentText"
+                  as="textarea"
+                  rows="12"
+                  className="form-control"
+                />
+              </FormGroup>
+              {/* Submit button */}
+              <Button type="submit" color="primary">
+                Submit
+              </Button>
+            </Form>
+          </Formik>
+        </ModalBody>
       </Modal>
     </>
   );
