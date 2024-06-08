@@ -1,6 +1,7 @@
 import { Button, Label, Col, FormGroup } from "reactstrap";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import React from "react";
+import { validateContactForm } from "../utils/validateContactForm";
 
 const ContactForm = () => {
     // definng the handle submit function
@@ -28,6 +29,8 @@ const ContactForm = () => {
     //   another prop
     // when the formik component recieves it will know to call the handle submit function
     onSubmit={handleSubmit}
+    // validate prop
+    validate={validateContactForm}
     >
       {/* We render the Form component inside Formik */}
       <Form>
@@ -43,6 +46,9 @@ const ContactForm = () => {
               placeholder='First Name'
               className='form-control'
             />
+            <ErrorMessage name='firstName'>
+                            {(msg) => <p className='text-danger'>{msg}</p>}
+                        </ErrorMessage>
           </Col>
         </FormGroup>
         <FormGroup row>
@@ -55,6 +61,9 @@ const ContactForm = () => {
               placeholder='Last Name'
               className='form-control'
             />
+            <ErrorMessage name='lastName'>
+                            {(msg) => <p className='text-danger'>{msg}</p>}
+                        </ErrorMessage>
           </Col>
         </FormGroup>
         <FormGroup row>
@@ -67,6 +76,10 @@ const ContactForm = () => {
               placeholder='Phone'
               className='form-control'
             />
+            
+            <ErrorMessage name='phoneNum'>
+                            {(msg) => <p className='text-danger'>{msg}</p>}
+                        </ErrorMessage>
           </Col>
         </FormGroup>
         <FormGroup row>
@@ -80,6 +93,9 @@ const ContactForm = () => {
               type='email'
               className='form-control'
             />
+             <ErrorMessage name='email'>
+                            {(msg) => <p className='text-danger'>{msg}</p>}
+                        </ErrorMessage>
           </Col>
         </FormGroup>
         <FormGroup row>

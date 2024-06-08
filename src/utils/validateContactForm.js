@@ -33,7 +33,7 @@ export const validateContactForm = (values) => {
     if (!values.email.includes('@')) {
         errors.email = 'Email should contain a @';
     }
-  return (
-    <div>validateContactForm</div>
-  )
+
+    // return the errors object from our function,so that For any fields where the input value failed a validation test we have a message to an object named errors under the corresponding property name.
+  return errors;
 }
