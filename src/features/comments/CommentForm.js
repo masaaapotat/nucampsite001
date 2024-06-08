@@ -7,7 +7,8 @@ import {
   FormGroup,
   Label,
 } from "reactstrap";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import { validateCommentForm } from "../../utils/validateCommentForm";
 
 function CommentForm({ campsiteId }) {
   // State Initialization
@@ -51,6 +52,7 @@ function CommentForm({ campsiteId }) {
         </ModalHeader>
         <ModalBody>
           <Formik
+          
             initialValues={{
               // Properties we want to capture in our form
               rating: '',
@@ -59,6 +61,7 @@ function CommentForm({ campsiteId }) {
             }}
             // When the Formik component receives it will know to call the handleSubmit function
             onSubmit={handleSubmit}
+            validate={validateCommentForm}
           >
             <Form>
               <FormGroup>
@@ -71,6 +74,9 @@ function CommentForm({ campsiteId }) {
                   <option value="4">4</option>
                   <option value="5">5</option>
                 </Field>
+                <ErrorMessage  name ='rating'>
+                {(msg) => <p className='text-danger'>{msg}</p>}
+                </ErrorMessage>
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="author">Your Name</Label>
@@ -79,6 +85,9 @@ function CommentForm({ campsiteId }) {
                   placeholder="Your Name"
                   className="form-control"
                 />
+                <ErrorMessage  name ='author'>
+                {(msg) => <p className='text-danger'>{msg}</p>}
+                </ErrorMessage>
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="commentText">Comment</Label>
