@@ -26,7 +26,7 @@ export const selectCampsiteById = (id) => (state) => {
   return state.campsites.campsitesArray.find(
       (campsite) => campsite.id === parseInt(id)
   );
-};
+}
 // find expects a single argument of a function and this function should be  a testing function, whenever this function returns a truthy value then our test has passed
 // we wamt to return a featured object w a return value of true
 export const selectFeaturedCampsite = (state) => {

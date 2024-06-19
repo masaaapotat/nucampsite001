@@ -7,11 +7,11 @@ import { selectFeaturedPromotion } from "../promotions/promotionsSlice";
 import { selectFeaturedPartner } from "../partners/partnersSlice";
 
 const DisplayList = () => {
-  const items = useSelector((state) =>  [
-    selectFeaturedCampsite(state),
-    selectFeaturedPromotion(state),
-    selectFeaturedPartner(state),
-  ]);
+    const items = useSelector((state) => [
+        selectFeaturedCampsite(state),
+        selectFeaturedPromotion(state),
+        selectFeaturedPartner(state)
+    ]);
 console.log('display items', items)
   return (
     <Row>
