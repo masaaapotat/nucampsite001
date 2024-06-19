@@ -5,6 +5,9 @@ export const store = configureStore({
   reducer: {
     counter: campsitesReducer,
   },
+
+
+  
 });
 
 
