@@ -3,7 +3,7 @@ import SubHeader from '../components/SubHeader';
 import PartnersList from '../features/partners/PartnersList';
 // import PartnersList from '../components/PartnersList';
 // import Partners from '../components/Partners';
-import Partner from '../components/Partner';
+// import Partner from '../components/Partner';
 
 
 const AboutPage = () => {
