@@ -1,3 +1,5 @@
+import { useDispatch } from "react-redux";
+import { addComment } from "./commentsSlice"; // Destructuring the import
 import { useState } from "react";
 import {
   Button,
@@ -13,6 +15,7 @@ import { validateCommentForm } from "../../utils/validateCommentForm";
 function CommentForm({ campsiteId }) {
   // State Initialization
   const [modalOpen, setModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
   // Create the handleSubmit event handler
   const handleSubmit = (values) => {
@@ -21,8 +24,11 @@ function CommentForm({ campsiteId }) {
       rating: values.rating,
       author: values.author,
       text: values.commentText,
+      date: new Date(Date.now()).toISOString()
     };
     console.log(comment);
+    // Invoke the dispatch()
+    dispatch(addComment(comment));
     
     // Close the modal after form submission
     setModalOpen(false);
@@ -31,35 +37,26 @@ function CommentForm({ campsiteId }) {
   return (
     <>
       <Button
-        outline={true}
-        // modalOpen state to be set to true, which will cause the Modal to open.
+        outline
         onClick={() => setModalOpen(true)}
       >
         <i className="fa fa-pencil fa-lg" /> Add Comment
       </Button>
       {/* Rendering a Modal */}
       <Modal
-        // Cause the Modal to open or close depending on the value of modalOpen.
         isOpen={modalOpen}
+        toggle={() => setModalOpen(false)}
       >
-        <ModalHeader
-          toggle={() => {
-            // Cause the modalOpen state to be set back to false when the Modal is closed.
-            setModalOpen(false);
-          }}
-        >
+        <ModalHeader toggle={() => setModalOpen(false)}>
           Add Comment
         </ModalHeader>
         <ModalBody>
           <Formik
-          
             initialValues={{
-              // Properties we want to capture in our form
               rating: '',
               author: '',
               commentText: '',
             }}
-            // When the Formik component receives it will know to call the handleSubmit function
             onSubmit={handleSubmit}
             validate={validateCommentForm}
           >
@@ -74,8 +71,8 @@ function CommentForm({ campsiteId }) {
                   <option value="4">4</option>
                   <option value="5">5</option>
                 </Field>
-                <ErrorMessage  name ='rating'>
-                {(msg) => <p className='text-danger'>{msg}</p>}
+                <ErrorMessage name="rating">
+                  {(msg) => <p className="text-danger">{msg}</p>}
                 </ErrorMessage>
               </FormGroup>
               <FormGroup>
@@ -85,8 +82,8 @@ function CommentForm({ campsiteId }) {
                   placeholder="Your Name"
                   className="form-control"
                 />
-                <ErrorMessage  name ='author'>
-                {(msg) => <p className='text-danger'>{msg}</p>}
+                <ErrorMessage name="author">
+                  {(msg) => <p className="text-danger">{msg}</p>}
                 </ErrorMessage>
               </FormGroup>
               <FormGroup>
