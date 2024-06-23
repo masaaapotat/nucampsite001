@@ -1,5 +1,4 @@
 import { useDispatch } from "react-redux";
-import { addComment } from "./commentsSlice"; // Destructuring the import
 import { useState } from "react";
 import {
   Button,
@@ -11,6 +10,7 @@ import {
 } from "reactstrap";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { validateCommentForm } from "../../utils/validateCommentForm";
+import { postComment } from "./commentsSlice";
 
 function CommentForm({ campsiteId }) {
   // State Initialization
@@ -28,7 +28,7 @@ function CommentForm({ campsiteId }) {
     };
     console.log(comment);
     // Invoke the dispatch()
-    dispatch(addComment(comment));
+    dispatch(postComment(comment));
     
     // Close the modal after form submission
     setModalOpen(false);
