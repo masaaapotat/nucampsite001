@@ -64,5 +64,11 @@ export const selectCampsiteById = (id) => (state) => {
 // find expects a single argument of a function and this function should be  a testing function, whenever this function returns a truthy value then our test has passed
 // we wamt to return a featured object w a return value of true
 export const selectFeaturedCampsite = (state) => {
-  return state.campsites.campsitesArray.find((campsite) => campsite.featured);
+  return {
+      featuredItem: state.campsites.campsitesArray.find(
+          (campsite) => campsite.featured
+      ),
+      isLoading: state.campsites.isLoading,
+      errMsg: state.campsites.errMsg
+  };
 };
